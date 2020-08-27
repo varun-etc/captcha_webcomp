@@ -1,0 +1,7 @@
+:root {
+    --red: crimson;
+}
+
+@tailwind  base;
+@tailwind  components;
+@tailwind  utilities;

@@ -1,0 +1,31 @@
+@import './variables';
+
+@mixin makeIcon($arg, $val) {
+   .#{$arg}:before {
+     content: $val;
+   }
+}
+
+@mixin makeIconIonic($arg, $val) {
+  // for ionic tabs integration as well as regular integration
+ .ion-ios-#{$arg}:before ,
+ .ion-md-#{$arg}:before ,
+ [class*="-#{$arg}-circle"]:before ,
+ [class*="-#{$arg}-outline"]:before {
+   content: $val;
+ }
+}
+
+
+@function se-icons-content($codepoint) {
+  @return unquote('"\\#{$codepoint}"');
+}
+
+@mixin se-icon($name, $pseudo: 'before') {
+    $codepoint: map-get($seIconsMap, $name);
+  
+    &:#{$pseudo} {
+      content: se-icons-content($codepoint);
+      font-family: 'se-icon';
+    }
+  }

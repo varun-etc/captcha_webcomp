@@ -1,0 +1,52 @@
+@import "./se-variable";
+
+$prefix: "--se-"; //Prefix string for custom CSS properties
+
+//Merges a variable name with $prefix
+@function custom-property-name($name) {
+  @return $prefix + $name;
+}
+
+// Defines a custom property
+@mixin define-custom-property($name, $value) {
+  #{custom-property-name($name)}: $value;
+}
+
+// define color variable based on $seTheme
+@mixin color($colorTheme, $transparencies: "none") {
+  $color: map-get($seTheme, $colorTheme);
+  @if $transparencies == "none" {
+    color: $color;
+    color: var(#{custom-property-name($colorTheme)}, $color);
+  } @else {
+    color: rgba($color, $transparencies);
+    color: rgba(
+      var(#{custom-property-name($colorTheme)}, $color),
+      $transparencies
+    );
+  }
+}
+
+@mixin background-color($colorTheme, $transparencies: "none") {
+  $color: map-get($seTheme, $colorTheme);
+  @if $transparencies == "none" {
+    background-color: $color;
+    background-color: var(#{custom-property-name($colorTheme)}, $color);
+  } @else {
+    background-color: rgba($color, $transparencies);
+  }
+}
+
+@mixin border-color($colorTheme, $transparencies: "none") {
+  $color: map-get($seTheme, $colorTheme);
+  @if $transparencies == "none" {
+    border-color: $color;
+    border-color: var(#{custom-property-name($colorTheme)}, $color);
+  } @else {
+    border-color: rgba($color, $transparencies);
+    border-color: rgba(
+      var(#{custom-property-name($colorTheme)}, $color),
+      $transparencies
+    );
+  }
+}
